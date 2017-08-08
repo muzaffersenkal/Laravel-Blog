@@ -19,6 +19,8 @@ Route::get('contact', function () {
     return view('pages.contact');
 });
 
+Route::post('contact','PageController@postContact');
+
 
     Route::get('about', function () {
         return view('pages.about    ');
