@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Post;
 use App\Tag;
+use Purifier;
 use Session;
 use Illuminate\Http\Request;
 
@@ -61,7 +62,7 @@ class PostController extends Controller
         $post = new Post;
 
         $post->title = $request->title;
-        $post->body = $request->body;
+        $post->body = Purifier::clean($request->body);
         $post->category_id = $request->category_id;
         $post->slug = $request->slug;
 
@@ -156,7 +157,7 @@ class PostController extends Controller
         $post->title =$request->input('title');
         $post->slug =$request->input('slug');
         $post->category_id = $request->input('category_id');
-        $post->body = $request->input('body');
+        $post->body = Purifier::clean($request->input('body'));
 
         $post->save();
 

@@ -11,6 +11,13 @@
     @endsection
 
 @section('scripts')
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+    <script>tinymce.init({
+        selector:'textarea',
+        plugins: 'link code',
+            menubar:false
+        });</script>
+
 
     {!! Html::script('js/parsley.min.js') !!}
     {!! Html::script('js/select2.min.js') !!}
