@@ -45,7 +45,8 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app'),
+            //storage path public path olarak değiştirildi
+            'root' => public_path('images/'),
         ],
 
         'public' => [

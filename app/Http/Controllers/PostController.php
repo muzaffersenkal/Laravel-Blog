@@ -6,6 +6,8 @@ use App\Category;
 use App\Post;
 use App\Tag;
 use Purifier;
+use Image;
+use Storage;
 use Session;
 use Illuminate\Http\Request;
 
@@ -55,7 +57,8 @@ class PostController extends Controller
             "title"=> "required|max:255",
             "slug"=>"required|alpha_dash|unique:posts,slug|min:5|max:255",
             "category_id"=>"required|integer",
-            "body"=> "required"
+            "body"=> "required",
+            "featured_image" => "sometimes|image"
         ));
 
         //store in database
@@ -65,6 +68,18 @@ class PostController extends Controller
         $post->body = Purifier::clean($request->body);
         $post->category_id = $request->category_id;
         $post->slug = $request->slug;
+
+        // attach image
+
+        if($request->hasFile('featured_image')){
+            $image = $request->file('featured_image');
+            $fileName = time().'.'.$image->getClientOriginalExtension();
+            $location= public_path('images/'.$fileName);
+            Image::make($image)->resize(800,400)->save($location);
+
+            $post->image=$fileName;
+
+        }
 
         $post->save();
 
@@ -133,21 +148,14 @@ class PostController extends Controller
     {
         //validate
         $post = Post::find($id);
-        if($request->input('slug') == $post->slug){
-            $this->validate($request,array(
-                "title"=> "required|max:255",
-                "category_id" => "required|integer",
 
-                "body"=> "required"
-            ));
-        }else{
             $this->validate($request,array(
                 "title"=> "required|max:255",
                 "category_id" => "required|integer",
-                "slug"=>"required|alpha_dash|unique:posts,slug|min:5|max:255",
-                "body"=> "required"
+                "slug"=>"required|alpha_dash|unique:posts,slug,$id|min:5|max:255",
+                "body"=> "required",
+                "featured_image" =>"image"
             ));
-        }
 
 
 
@@ -158,6 +166,19 @@ class PostController extends Controller
         $post->slug =$request->input('slug');
         $post->category_id = $request->input('category_id');
         $post->body = Purifier::clean($request->input('body'));
+
+        if($request->hasFile('featured_image')){
+            $image = $request->file('featured_image');
+            $fileName = time().'.'.$image->getClientOriginalExtension();
+            $location= public_path('images/'.$fileName);
+            Image::make($image)->resize(800,400)->save($location);
+
+            $oldFile = $post->image;
+            $post->image=$fileName;
+            Storage::delete($oldFile);
+
+        }
+
 
         $post->save();
 
@@ -181,7 +202,9 @@ class PostController extends Controller
         //
         $post = Post::find($id);
         $post->tags()->detach();
+        Storage::delete($post->image);
         $post->delete();
+
 
         Session::flash('success','The post was successfully deleted');
 
