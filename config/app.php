@@ -169,6 +169,7 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Mews\Purifier\PurifierServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Laratrust\LaratrustServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -239,6 +240,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Purifier' => Mews\Purifier\Facades\Purifier::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'Laratrust'   => Laratrust\LaratrustFacade::class,
     ],
 
 ];
