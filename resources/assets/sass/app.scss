@@ -4,6 +4,16 @@
 
 // Variables
 @import "variables";
+@import "override";
+
 
 // Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+
+
+@import '~bootstrap/dist/css/bootstrap.css';
+@import '~bootstrap-vue/dist/bootstrap-vue.css';
+
+// Thirt Part
+@import '~sweetalert/dist/sweetalert.css';
