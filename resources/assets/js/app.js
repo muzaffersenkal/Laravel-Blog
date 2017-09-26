@@ -6,14 +6,21 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+import router from './routes.js';
+
 require('./bootstrap');
 
-const swal = require('sweetalert');
+const swal = require('sweetalert2');
 
 window.Vue = require('vue');
 
-import Buefy from 'buefy';
-Vue.use(Buefy);
+import BootstrapVue from 'bootstrap-vue';
+
+
+
+Vue.use(BootstrapVue);
+
+
 
 
 
@@ -29,7 +36,5 @@ Vue.use(Buefy);
 
 const app = new Vue({
     el: '#app',
-    data: {
-        message : "mesaj"
-    }
+    router
 });

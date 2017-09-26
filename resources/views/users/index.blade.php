@@ -4,7 +4,11 @@
 @section('content')
 <h1> User List</h1>
 
-
+<div class="row">
+    <div class="col-md-12">
+        <a href="{{route('users.create')}}" class="btn btn-primary pull-right">Create User</a>
+    </div>
+</div>
     <table class="table">
         <thead>
             <tr>

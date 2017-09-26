@@ -1,6 +1,5 @@
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
@@ -13,17 +12,17 @@
 
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li class="{{  Request::is('/') ? "active" : ""  }}"><a href="/">Home</a></li>
-                <li class="{{  Request::is('blog') ? "active" : ""  }}"><a href="/blog">Blog</a></li>
-                <li class=" {{ Request::is('about') ? "active" : ""  }}"><a href="/about">About</a></li>
-                <li class=" {{ Request::is('contact') ? "active" : ""  }}"><a href="/contact">Contact</a></li>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item {{  Request::is('/') ? "active" : ""  }}"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item {{  Request::is('blog') ? "active" : ""  }}"><a class="nav-link" href="/blog">Blog</a></li>
+                <li class="nav-item {{ Request::is('about') ? "active" : ""  }}"><a class="nav-link" href="/about">About</a></li>
+                <li class="nav-item {{ Request::is('contact') ? "active" : ""  }}"><a class="nav-link"  href="/contact">Contact</a></li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="navbar-nav navbar-right mr-auto">
                 @if(Auth::check())
                 <li class="dropdown">
-                    <a href="/" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hi , {{ Auth::user()->name }} <span class="caret"></span></a>
+                    <a href="/" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hi , {{ Auth::user()->name }}</a>
                     <ul class="dropdown-menu">
                         <li><a href="{{ route('posts.index') }}">Posts</a></li>
                         <li><a href="{{ route('categories.index') }}">Categories</a></li>
@@ -52,6 +51,5 @@
             </ul>
         </div>
         <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container-fluid -->
+
 </nav>

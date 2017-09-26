@@ -26,6 +26,7 @@ Route::post('contact','PageController@postContact');
         return view('pages.about    ');
     });
 
+Route::get('posts/getPost','PostController@getPost')->name('posts.getPost');
    Route::resource('posts','PostController');
    Route::resource('users','UserController');
    Route::resource('categories','CategoryController',['except'=>'create']);
@@ -39,8 +40,20 @@ Route::post('contact','PageController@postContact');
    Route::delete('comments/{id}','CommentsController@destroy')->name('comments.destroy');
    Route::get('comments/{id}/delete','CommentsController@delete')->name('comments.delete');
 
-//auth
+
 
 Auth::routes();
+
+
+
+   // Admin
+
+Route::middleware('auth')->prefix('admin')->group(function () {
+    Route::get('/','AdminController@index');
+});
+
+//auth
+
+
 
 Route::get('/home', 'HomeController@index')->name('home');

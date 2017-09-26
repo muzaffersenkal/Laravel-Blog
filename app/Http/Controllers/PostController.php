@@ -23,12 +23,21 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+    public function getPost(){
+
+        return Post::all();
+
+    }
+
+
     public function index()
     {
         //
         $posts = Post::orderBy('id','desc')->paginate(2);
 
-        return view ('posts.index')->withPosts($posts);
+        return view('posts.index')->withPosts($posts);
     }
 
     /**

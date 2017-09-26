@@ -5,9 +5,10 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading"></div>
+                    <div class="panel-heading">Edit {{$user->name}}</div>
                     <div class="panel-body">
-                        <form class="form-horizontal" method="POST" action="{{ route('users.store') }}">
+                        <form class="form-horizontal" method="POST" action="{{ route('users.update',$user->id) }}">
+                           {{method_field('PUT')}}
                             {{ csrf_field() }}
 
 
@@ -15,7 +16,7 @@
                                 <label for="name" class="col-md-4 control-label">Name</label>
 
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+                                    <input id="name" type="text" class="form-control" name="name" value="{{ $user->name }}" required autofocus>
 
                                     @if ($errors->has('name'))
                                         <span class="help-block">
@@ -29,7 +30,7 @@
                                 <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
                                 <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                                    <input id="email" type="email" class="form-control" name="email" value="{{ $user->email }}" required>
 
                                     @if ($errors->has('email'))
                                         <span class="help-block">
@@ -39,7 +40,7 @@
                                 </div>
                             </div>
 
-                            <div  v-if="!autoGenerate" class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                            <div  v-if="selected == 'change'" class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                                 <label for="password" class="col-md-4 control-label">Password</label>
 
                                 <div class="col-md-6" >
@@ -53,7 +54,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group" v-if="!autoGenerate">
+                            <div class="form-group" v-if="selected == 'change'">
                                 <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
 
                                 <div class="col-md-6">
@@ -62,10 +63,13 @@
                             </div>
 
                             <div class="form-group">
-                                <div class="col-md-6 col-md-offset-4">
-                                    <b-form-checkbox   name="auto_generate" v-model="autoGenerate" >
-                                                Auto Generate
-                                    </b-form-checkbox>
+
+                                <div class="col-md-6 col-md-offset-4" >
+                                    <b-form-radio id="radios2"
+                                                  v-model="selected"
+                                                  :options="options"
+                                                  stacked></b-form-radio>
+
                                 </div>
 
                             </div>
@@ -73,7 +77,7 @@
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
-                                        Create User
+                                        Edit User
                                     </button>
                                 </div>
                             </div>
@@ -88,14 +92,19 @@
 
 @section('scripts')
 
-<script>
+    <script>
 
-    var app = new Vue({
-        el: '#app',
-        data: {
-           autoGenerate:  false
-        }
-    });
-</script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                selected: 'keep',
+                options: [
+                    { text: 'Do not change password', value: 'keep' },
+                    { text: 'Auto Generate', value: 'auto' },
+                    { text: 'Change Password', value: 'change' }
+                ]
+            }
+        });
+    </script>
 
-    @endsection
+@endsection

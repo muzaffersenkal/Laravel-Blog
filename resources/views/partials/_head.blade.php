@@ -10,8 +10,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Bootstrap -->
 
-    <link type="text/css" rel="stylesheet" href="{{ url('/css/style.css') }}" />
+
     <link type="text/css" rel="stylesheet" href="{{ url('/css/app.css') }}" />
+    <link type="text/css" rel="stylesheet" href="{{ url('/css/style.css') }}" />
 
 
 
